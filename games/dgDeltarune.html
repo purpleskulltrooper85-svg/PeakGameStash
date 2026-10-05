@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DELTARUNE</title>
+
+  <style>
+    @font-face {
+      font-family: "Pixel Operator Mono";
+      src: url("https://cdn.jsdelivr.net/gh/purpleskulltrooper85-svg/Deltarune-Web@main/PixelOperatorMono-Bold.ttf")
+        format("truetype");
+      font-style: normal;
+      font-weight: 700;
+      font-display: swap;
+    }
+
+    :root {
+      --yellow: #ffff00;
+      --white: #ffffff;
+      --gray: #777777;
+      --line: #2a2a2a;
+    }
+
+    * {
+      box-sizing: border-box;
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      min-height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: #000;
+      color: #fff;
+      font-family: "Pixel Operator Mono", "Courier New", monospace;
+      font-weight: 700;
+    }
+
+    body {
+      min-height: 100vh;
+    }
+
+    #menu-screen {
+      width: 100%;
+      height: 100vh;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      background: #000;
+    }
+
+    /*
+      This makes the menu exactly fill the screen height.
+      The chapter rows share all remaining vertical space,
+      so there is no unused gap under the footer.
+    */
+    #menu {
+      width: min(1640px, 94vw);
+      height: 100vh;
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows:
+        minmax(0, 1fr)
+        minmax(0, 1fr)
+        minmax(0, 1fr)
+        minmax(0, 1fr)
+        minmax(0, 1fr)
+        minmax(0, .72fr)
+        minmax(0, .72fr)
+        auto;
+      padding-top: clamp(4px, 1vh, 16px);
+      padding-bottom: 0;
+      opacity: 0;
+      transform: translateY(-38px);
+      animation: menu-enter 850ms cubic-bezier(.2, .8, .2, 1) forwards;
+    }
+
+    @keyframes menu-enter {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .chapter {
+      position: relative;
+      width: 100%;
+      min-height: 0;
+      height: 100%;
+      display: grid;
+      grid-template-columns: minmax(330px, .9fr) minmax(390px, 1.12fr) 145px;
+      align-items: center;
+      column-gap: clamp(18px, 2.4vw, 42px);
+      padding: 6px clamp(18px, 5.8vw, 104px);
+      border: 0;
+      border-bottom: 4px solid var(--line);
+      background: #000;
+      color: var(--white);
+      cursor: pointer;
+      text-align: left;
+      font: inherit;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .chapter:hover,
+    .chapter:focus-visible {
+      background: #0a0a0a;
+      outline: none;
+    }
+
+    .chapter:focus-visible {
+      box-shadow: inset 0 0 0 3px var(--yellow);
+    }
+
+    .chapter.locked {
+      cursor: not-allowed;
+      opacity: .45;
+      grid-template-columns: minmax(250px, .68fr) minmax(280px, .85fr) 104px;
+      padding-left: clamp(90px, 11vw, 190px);
+      padding-right: clamp(42px, 5vw, 95px);
+      column-gap: clamp(14px, 1.8vw, 30px);
+    }
+
+    .chapter.locked:hover {
+      background: #000;
+    }
+
+    .heart {
+      position: absolute;
+      top: 50%;
+      left: clamp(10px, 2.3vw, 35px);
+      display: none;
+      width: clamp(28px, 3.2vh, 44px);
+      height: clamp(28px, 3.2vh, 44px);
+      object-fit: contain;
+      pointer-events: none;
+      transform: translateY(-50%);
+    }
+
+    .chapter.selected .heart {
+      display: block;
+      animation: heart-bob 580ms ease-in-out infinite alternate;
+    }
+
+    @keyframes heart-bob {
+      from {
+        transform: translateY(-50%) translateX(0);
+      }
+
+      to {
+        transform: translateY(-50%) translateX(4px);
+      }
+    }
+
+    .chapter-text,
+    .chapter-name,
+    .chapter-icon {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+
+    .chapter-text {
+      justify-self: start;
+      width: min(420px, 100%);
+      max-height: min(92px, 7.7vh);
+      margin-left: clamp(-8px, -0.7vw, -2px);
+      transition: filter 80ms linear;
+    }
+
+    .chapter-name {
+      justify-self: center;
+      width: min(690px, 100%);
+      max-height: min(96px, 8vh);
+      transition: filter 80ms linear;
+    }
+
+    .icon-holder {
+      justify-self: end;
+      width: min(132px, 10.8vh);
+      height: min(132px, 10.8vh);
+      display: grid;
+      place-items: center;
+      border: 0;
+      background: transparent;
+    }
+
+    .chapter-icon {
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      border: 0;
+      transition: filter 80ms linear;
+    }
+
+    .chapter.selected .chapter-icon {
+      filter:
+        sepia(.18)
+        saturate(1.15)
+        hue-rotate(2deg)
+        brightness(1.04)
+        contrast(1.02);
+    }
+
+    .chapter.selected .chapter-text,
+    .chapter.selected .chapter-name {
+      filter:
+        brightness(0)
+        saturate(100%)
+        invert(94%)
+        sepia(96%)
+        saturate(1800%)
+        hue-rotate(2deg)
+        brightness(110%)
+        contrast(107%);
+    }
+
+    .fallback-text,
+    .fallback-name {
+      display: none;
+      color: inherit;
+      font-weight: 700;
+    }
+
+    .fallback-text {
+      font-size: clamp(30px, 4.1vw, 66px);
+    }
+
+    .fallback-name {
+      justify-self: center;
+      text-align: center;
+      font-size: clamp(29px, 4vw, 64px);
+    }
+
+    .chapter-text.failed,
+    .chapter-name.failed {
+      display: none;
+    }
+
+    .chapter-text.failed + .fallback-text,
+    .chapter-name.failed + .fallback-name {
+      display: block;
+    }
+
+    .chapter.selected .fallback-text,
+    .chapter.selected .fallback-name {
+      color: var(--yellow);
+    }
+
+    .locked-label {
+      color: var(--gray);
+      font-size: clamp(20px, 2.85vw, 46px);
+      white-space: nowrap;
+    }
+
+    .locked-name {
+      justify-self: center;
+      color: var(--gray);
+      font-size: clamp(20px, 2.75vw, 44px);
+    }
+
+    .locked .icon-holder {
+      width: min(96px, 8vh);
+      height: min(96px, 8vh);
+      border: 4px solid #777;
+      opacity: .9;
+    }
+
+    #menu-footer {
+      min-height: clamp(64px, 8.6vh, 104px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 8px 34px 7px;
+      color: #888;
+    }
+
+    .copyright {
+      font-size: clamp(12px, 1.4vw, 22px);
+      line-height: 1.25;
+    }
+
+    #quit-button {
+      border: 0;
+      background: transparent;
+      color: #fff;
+      padding: 4px 20px;
+      cursor: pointer;
+      font: inherit;
+      font-size: clamp(34px, 4vw, 64px);
+    }
+
+    #quit-button:hover,
+    #quit-button:focus-visible {
+      color: var(--yellow);
+      outline: none;
+    }
+
+    .dots {
+      color: #777;
+      font-size: clamp(31px, 4vw, 62px);
+      letter-spacing: 12px;
+      user-select: none;
+    }
+
+    #menu-screen.chapter-leaving {
+      pointer-events: none;
+    }
+
+    #menu-screen.chapter-leaving #menu {
+      animation: menu-pixel-fade-down 760ms steps(23, end) forwards;
+    }
+
+    @keyframes menu-pixel-fade-down {
+      0% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateY(36px);
+      }
+    }
+
+    #transition {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      pointer-events: none;
+      opacity: 0;
+      background: #000;
+    }
+
+    #transition.play {
+      animation: black-fade-in 800ms linear forwards;
+    }
+
+    @keyframes black-fade-in {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    #game-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: none;
+      background: #000;
+    }
+
+    #game-frame {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      background: #000;
+    }
+
+    #game-loading {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      display: grid;
+      place-items: center;
+      background: #000;
+      pointer-events: none;
+    }
+
+    #loading-bar-border {
+      width: min(520px, 74vw);
+      height: 34px;
+      padding: 4px;
+      border: 4px solid #fff;
+      background: #000;
+    }
+
+    #loading-bar-fill {
+      width: 0%;
+      height: 100%;
+      background: #fff;
+      transition: width 170ms linear;
+    }
+
+    #back-button {
+      position: fixed;
+      top: 12px;
+      left: 12px;
+      z-index: 200;
+      display: none;
+      padding: 8px 12px;
+      border: 2px solid #fff;
+      background: #000;
+      color: #fff;
+      cursor: pointer;
+      font-family: "Pixel Operator Mono", "Courier New", monospace;
+      font-weight: 700;
+      font-size: 20px;
+    }
+
+    #back-button:hover,
+    #back-button:focus-visible {
+      border-color: var(--yellow);
+      color: var(--yellow);
+      outline: none;
+    }
+
+    @media (max-width: 900px) {
+      #menu {
+        width: 96vw;
+        grid-template-rows:
+          minmax(0, 1fr)
+          minmax(0, 1fr)
+          minmax(0, 1fr)
+          minmax(0, 1fr)
+          minmax(0, 1fr)
+          minmax(0, .72fr)
+          minmax(0, .72fr)
+          auto;
+      }
+
+      .chapter {
+        grid-template-columns: minmax(160px, 1fr) minmax(170px, 1.25fr) 92px;
+        column-gap: 14px;
+        padding: 7px 15px 7px 48px;
+      }
+
+      .chapter.locked {
+        grid-template-columns: minmax(130px, .78fr) minmax(145px, 1fr) 72px;
+        padding-left: 70px;
+        padding-right: 24px;
+      }
+
+      .heart {
+        left: 10px;
+      }
+
+      .chapter-text {
+        max-height: min(60px, 7.5vh);
+        margin-left: -4px;
+      }
+
+      .chapter-name {
+        max-height: min(62px, 7.7vh);
+      }
+
+      .icon-holder {
+        width: min(82px, 10vh);
+        height: min(82px, 10vh);
+      }
+
+      .locked .icon-holder {
+        width: min(68px, 7.7vh);
+        height: min(68px, 7.7vh);
+        border-width: 3px;
+      }
+
+      .locked-label,
+      .locked-name {
+        font-size: clamp(18px, 3.1vw, 34px);
+      }
+    }
+
+    @media (max-width: 560px) {
+      #menu {
+        width: 98vw;
+        padding-top: 2px;
+        grid-template-rows:
+          minmax(0, 1fr)
+          minmax(0, 1fr)
+          minmax(0, 1fr)
+          minmax(0, 1fr)
+          minmax(0, 1fr)
+          minmax(0, .74fr)
+          minmax(0, .74fr)
+          auto;
+      }
+
+      .chapter {
+        grid-template-columns: minmax(105px, 1fr) minmax(108px, 1.18fr) 62px;
+        column-gap: 7px;
+        padding: 5px 8px 5px 40px;
+        border-bottom-width: 3px;
+      }
+
+      .chapter.locked {
+        grid-template-columns: minmax(95px, 1fr) minmax(80px, 1fr) 52px;
+        column-gap: 5px;
+        padding: 5px 9px 5px 52px;
+      }
+
+      .heart {
+        left: 7px;
+        width: 25px;
+        height: 25px;
+      }
+
+      .chapter-text,
+      .chapter-name {
+        max-height: 40px;
+      }
+
+      .chapter-text {
+        margin-left: -3px;
+      }
+
+      .icon-holder {
+        width: 60px;
+        height: 60px;
+      }
+
+      .locked .icon-holder {
+        width: 48px;
+        height: 48px;
+        border-width: 3px;
+      }
+
+      .locked-label,
+      .locked-name {
+        font-size: 18px;
+      }
+
+      #menu-footer {
+        min-height: 62px;
+        padding: 6px 6px 4px;
+      }
+
+      .copyright {
+        font-size: 11px;
+      }
+
+      #quit-button {
+        padding: 3px 8px;
+        font-size: 32px;
+      }
+
+      .dots {
+        font-size: 31px;
+        letter-spacing: 2px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <section id="menu-screen">
+    <main id="menu"></main>
+  </section>
+
+  <div id="transition"></div>
+
+  <section id="game-screen">
+    <div id="game-loading">
+      <div id="loading-bar-border">
+        <div id="loading-bar-fill"></div>
+      </div>
+    </div>
+
+    <iframe
+      id="game-frame"
+      title="Deltarune Game"
+      allow="autoplay; fullscreen; gamepad"
+    ></iframe>
+  </section>
+
+  <button id="back-button" type="button">← MENU</button>
+
+  <audio
+    id="background-audio"
+    preload="auto"
+    loop
+    src="https://cdn.jsdelivr.net/gh/purpleskulltrooper85-svg/Deltarune-Web@main/assets/audio_drone.ogg"
+  ></audio>
+
+  <audio
+    id="move-audio"
+    preload="auto"
+    src="https://cdn.jsdelivr.net/gh/purpleskulltrooper85-svg/Deltarune-Web@main/assets/snd_menumove.mp3"
+  ></audio>
+
+  <audio
+    id="select-audio"
+    preload="auto"
+    src="https://cdn.jsdelivr.net/gh/purpleskulltrooper85-svg/Deltarune-Web@main/assets/snd_select.mp3"
+  ></audio>
+
+  <script>
+    const ASSET_CDN =
+      "https://cdn.jsdelivr.net/gh/purpleskulltrooper85-svg/Deltarune-Web@main";
+
+    const GAME_SITE =
+      "https://purpleskulltrooper85-svg.github.io/Deltarune-Web";
+
+    const CHAPTER_NAMES = [
+      "The Beginning",
+      "A Cyber's World",
+      "Late Night",
+      "Prophecy",
+      "Festival Day"
+    ];
+
+    const menuScreen = document.getElementById("menu-screen");
+    const menu = document.getElementById("menu");
+    const transition = document.getElementById("transition");
+    const gameScreen = document.getElementById("game-screen");
+    const gameFrame = document.getElementById("game-frame");
+    const gameLoading = document.getElementById("game-loading");
+    const loadingFill = document.getElementById("loading-bar-fill");
+    const backButton = document.getElementById("back-button");
+
+    const backgroundAudio = document.getElementById("background-audio");
+    const moveAudio = document.getElementById("move-audio");
+    const selectAudio = document.getElementById("select-audio");
+
+    let selectedIndex = 0;
+    let musicStarted = false;
+    let chapterIsLoading = false;
+    let loadingInterval = null;
+    let loadingProgress = 0;
+
+    function asset(path) {
+      return `${ASSET_CDN}/${path
+        .split("/")
+        .map(part => encodeURIComponent(part))
+        .join("/")}`;
+    }
+
+    function gameURL(chapterNumber) {
+      return `${GAME_SITE}/chapter${chapterNumber}/`;
+    }
+
+    function playSound(audio) {
+      audio.pause();
+      audio.currentTime = 0;
+      audio.play().catch(() => {});
+    }
+
+    function startBackgroundAudio() {
+      if (musicStarted) return;
+
+      backgroundAudio.volume = 0.38;
+
+      backgroundAudio.play()
+        .then(() => {
+          musicStarted = true;
+        })
+        .catch(() => {});
+    }
+
+    function menuImage(className, path, alt, fallbackClass, fallbackText) {
+      return `
+        <img
+          class="${className}"
+          src="${asset(path)}"
+          alt="${alt}"
+          onerror="this.classList.add('failed')"
+        >
+        <span class="${fallbackClass}">${fallbackText}</span>
+      `;
+    }
+
+    function buildMenu() {
+      let html = "";
+
+      for (let chapterNumber = 1; chapterNumber <= 5; chapterNumber++) {
+        html += `
+          <button
+            class="chapter"
+            type="button"
+            data-chapter="${chapterNumber}"
+            aria-label="Start Chapter ${chapterNumber}"
+          >
+            <img
+              class="heart"
+              src="${asset("assets/undertale-icon.png")}"
+              alt=""
+              onerror="this.style.display='none'"
+            >
+
+            ${menuImage(
+              "chapter-text",
+              `assets/chapter-text/chapter-${chapterNumber}.png`,
+              `Chapter ${chapterNumber}`,
+              "fallback-text",
+              `Chapter ${chapterNumber}`
+            )}
+
+            ${menuImage(
+              "chapter-name",
+              `assets/chapter-text/chapter-name-${chapterNumber}.png`,
+              CHAPTER_NAMES[chapterNumber - 1],
+              "fallback-name",
+              CHAPTER_NAMES[chapterNumber - 1]
+            )}
+
+            <span class="icon-holder">
+              <img
+                class="chapter-icon"
+                src="${asset(`assets/Deltarune Icons/Chapter ${chapterNumber}.png`)}"
+                alt=""
+                onerror="this.style.display='none'"
+              >
+            </span>
+          </button>
+        `;
+      }
+
+      html += `
+        <button class="chapter locked" type="button" disabled>
+          <span class="locked-label">Chapter 6</span>
+          <span class="locked-name">--</span>
+          <span class="icon-holder"></span>
+        </button>
+
+        <button class="chapter locked" type="button" disabled>
+          <span class="locked-label">Chapter 7</span>
+          <span class="locked-name">--</span>
+          <span class="icon-holder"></span>
+        </button>
+
+        <footer id="menu-footer">
+          <div class="copyright">
+            (C) Toby Fox 2018–2026<br>
+            DELTARUNE
+          </div>
+
+          <button id="quit-button" type="button">Quit</button>
+
+          <div class="dots" aria-hidden="true">⠿</div>
+        </footer>
+      `;
+
+      menu.innerHTML = html;
+    }
+
+    function chapters() {
+      return [...document.querySelectorAll(".chapter:not(.locked)")];
+    }
+
+    function selectChapter(index, playMove = true) {
+      const allChapters = chapters();
+      const nextIndex = (index + allChapters.length) % allChapters.length;
+      const changed = nextIndex !== selectedIndex;
+
+      selectedIndex = nextIndex;
+
+      allChapters.forEach((chapter, i) => {
+        chapter.classList.toggle("selected", i === selectedIndex);
+      });
+
+      if (changed && playMove) {
+        startBackgroundAudio();
+        playSound(moveAudio);
+      }
+    }
+
+    function setProgress(value) {
+      loadingProgress = Math.max(0, Math.min(100, value));
+      loadingFill.style.width = `${loadingProgress}%`;
+    }
+
+    function startLoadingBar() {
+      clearInterval(loadingInterval);
+      setProgress(0);
+
+      loadingInterval = setInterval(() => {
+        if (loadingProgress < 88) {
+          setProgress(
+            loadingProgress + (loadingProgress < 45 ? 5 : 1.8)
+          );
+        }
+      }, 120);
+    }
+
+    function finishLoadingBar() {
+      clearInterval(loadingInterval);
+      setProgress(100);
+
+      setTimeout(() => {
+        gameLoading.style.display = "none";
+      }, 180);
+    }
+
+    function resetLoadingBar() {
+      clearInterval(loadingInterval);
+      setProgress(0);
+    }
+
+    function launchChapter(chapterNumber) {
+      if (chapterIsLoading) return;
+
+      chapterIsLoading = true;
+
+      startBackgroundAudio();
+      playSound(selectAudio);
+
+      backgroundAudio.pause();
+
+      menuScreen.classList.add("chapter-leaving");
+      transition.classList.add("play");
+
+      setTimeout(() => {
+        gameScreen.style.display = "block";
+        backButton.style.display = "block";
+        gameLoading.style.display = "grid";
+
+        startLoadingBar();
+
+        gameFrame.src = gameURL(chapterNumber);
+      }, 760);
+    }
+
+    gameFrame.addEventListener("load", () => {
+      finishLoadingBar();
+    });
+
+    function returnToMenu() {
+      playSound(selectAudio);
+
+      gameFrame.src = "about:blank";
+
+      gameScreen.style.display = "none";
+      backButton.style.display = "none";
+      gameLoading.style.display = "grid";
+
+      transition.classList.remove("play");
+      menuScreen.classList.remove("chapter-leaving");
+
+      menu.style.animation = "none";
+      menu.style.transform = "";
+      menu.style.opacity = "";
+
+      void menu.offsetWidth;
+
+      menu.style.animation = "";
+
+      chapterIsLoading = false;
+
+      resetLoadingBar();
+
+      backgroundAudio.play()
+        .then(() => {
+          musicStarted = true;
+        })
+        .catch(() => {});
+    }
+
+    function setupEvents() {
+      const allChapters = chapters();
+
+      allChapters.forEach((chapter, index) => {
+        chapter.addEventListener("mouseenter", () => {
+          selectChapter(index, true);
+        });
+
+        chapter.addEventListener("focus", () => {
+          selectChapter(index, true);
+        });
+
+        chapter.addEventListener("click", () => {
+          startBackgroundAudio();
+          selectChapter(index, false);
+          launchChapter(Number(chapter.dataset.chapter));
+        });
+      });
+
+      document.addEventListener("pointerdown", startBackgroundAudio, {
+        once: true
+      });
+
+      document.addEventListener("keydown", event => {
+        if (gameScreen.style.display === "block") {
+          if (event.key === "Escape") {
+            returnToMenu();
+          }
+
+          return;
+        }
+
+        startBackgroundAudio();
+
+        if (event.key === "ArrowDown" || event.key.toLowerCase() === "s") {
+          event.preventDefault();
+          selectChapter(selectedIndex + 1, true);
+          chapters()[selectedIndex].focus();
+        }
+
+        if (event.key === "ArrowUp" || event.key.toLowerCase() === "w") {
+          event.preventDefault();
+          selectChapter(selectedIndex - 1, true);
+          chapters()[selectedIndex].focus();
+        }
+
+        if (event.key === "Enter" || event.key === " ") {
+          const focused = document.activeElement.closest?.(".chapter");
+
+          if (focused && !focused.classList.contains("locked")) {
+            event.preventDefault();
+            launchChapter(Number(focused.dataset.chapter));
+          }
+        }
+      });
+
+      document.getElementById("quit-button").addEventListener("click", () => {
+        playSound(selectAudio);
+        window.close();
+      });
+
+      backButton.addEventListener("click", returnToMenu);
+    }
+
+    buildMenu();
+    setupEvents();
+    selectChapter(0, false);
+  </script>
+</bod
