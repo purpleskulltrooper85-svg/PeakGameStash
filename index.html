@@ -8,28 +8,28 @@
   <style>
     @font-face {
       font-family: "Peak Pixel";
-      src: url("https://cdn.jsdelivr.net/gh/purpleskulltrooper85-svg/PeakGameStash@main/themes/undertale/PixelOperatorMono-Bold.ttf")
+      src: url("https://cdn.jsdelivr.net/gh/purpleskulltrooper85-svg/PeakGameStash@main/themes/undertale/PixelOperatorMono-Bold.ttf?v=1")
         format("truetype");
-      font-style: normal;
       font-weight: 700;
+      font-style: normal;
       font-display: swap;
     }
 
     :root {
-      --bg-one: #0a0825;
-      --bg-two: #1b0e49;
-      --bg-three: #2c145c;
+      --bg-one: #08051e;
+      --bg-two: #1a0c49;
+      --bg-three: #36136b;
       --text: #f7f5ff;
-      --muted: #b9b0df;
-      --card: rgba(17, 14, 49, 0.68);
-      --card-hover: rgba(50, 31, 111, 0.83);
-      --line: rgba(190, 172, 255, 0.25);
-      --accent: #b99cff;
-      --accent-two: #65d6ff;
-      --button-text: #12092e;
-      --shadow: rgba(0, 0, 0, 0.42);
+      --muted: #beb5e4;
+      --card: rgba(15, 12, 47, 0.70);
+      --card-hover: rgba(49, 29, 112, 0.86);
+      --line: rgba(197, 181, 255, 0.28);
+      --accent: #bd9cff;
+      --accent-two: #5edaff;
+      --button-text: #160a32;
       --font-main: Arial, system-ui, sans-serif;
       --font-title: Arial, system-ui, sans-serif;
+      --sbr-background: none;
     }
 
     * {
@@ -38,7 +38,7 @@
 
     html {
       min-height: 100%;
-      background: #09061d;
+      background: #08051e;
     }
 
     body {
@@ -48,11 +48,12 @@
       color: var(--text);
       font-family: var(--font-main);
       background:
-        radial-gradient(circle at 15% 20%, rgba(124, 83, 255, 0.28), transparent 27%),
-        radial-gradient(circle at 85% 18%, rgba(67, 204, 255, 0.20), transparent 24%),
-        radial-gradient(circle at 50% 85%, rgba(218, 71, 255, 0.17), transparent 28%),
+        radial-gradient(circle at 13% 17%, rgba(129, 85, 255, 0.29), transparent 26%),
+        radial-gradient(circle at 85% 18%, rgba(62, 206, 255, 0.22), transparent 24%),
+        radial-gradient(circle at 48% 89%, rgba(236, 72, 255, 0.18), transparent 30%),
         linear-gradient(135deg, var(--bg-one), var(--bg-two), var(--bg-three));
       background-size: 150% 150%;
+      background-attachment: fixed;
       animation: galaxy-shift 18s ease-in-out infinite alternate;
     }
 
@@ -66,7 +67,7 @@
     }
 
     body::before {
-      opacity: 0.7;
+      opacity: 0.72;
       background-image:
         radial-gradient(circle at 7% 17%, #fff 0 1px, transparent 1.7px),
         radial-gradient(circle at 18% 76%, #fff 0 1px, transparent 1.7px),
@@ -119,12 +120,11 @@
       --text: #fff;
       --muted: #aaa;
       --card: #000;
-      --card-hover: #101010;
-      --line: #3a3a3a;
+      --card-hover: #111;
+      --line: #444;
       --accent: #ffff00;
       --accent-two: #ffff00;
       --button-text: #000;
-      --shadow: #000;
       --font-main: "Peak Pixel", "Courier New", monospace;
       --font-title: "Peak Pixel", "Courier New", monospace;
       background: #000;
@@ -134,6 +134,44 @@
 
     body.theme-undertale::before,
     body.theme-undertale::after {
+      display: none;
+    }
+
+    body.theme-sbr {
+      --text: #fff6d8;
+      --muted: #e7c98b;
+      --card: rgba(30, 14, 7, 0.80);
+      --card-hover: rgba(86, 44, 12, 0.88);
+      --line: rgba(255, 207, 97, 0.48);
+      --accent: #ffd35b;
+      --accent-two: #da6a20;
+      --button-text: #281102;
+      --font-main: Georgia, "Times New Roman", serif;
+      --font-title: Georgia, "Times New Roman", serif;
+      background-color: #1a0903;
+      background-image:
+        linear-gradient(rgba(18, 6, 2, 0.56), rgba(18, 6, 2, 0.72)),
+        var(--sbr-background);
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      animation: none;
+    }
+
+    body.theme-sbr::before {
+      opacity: 0.17;
+      background:
+        repeating-linear-gradient(
+          -18deg,
+          transparent 0,
+          transparent 40px,
+          rgba(255, 216, 116, 0.20) 41px,
+          transparent 43px
+        );
+      animation: none;
+    }
+
+    body.theme-sbr::after {
       display: none;
     }
 
@@ -176,9 +214,8 @@
       border: 2px solid var(--accent);
       border-radius: 17px;
       color: var(--accent);
-      background: rgba(0, 0, 0, 0.18);
+      background: rgba(0, 0, 0, 0.28);
       font-size: 28px;
-      box-shadow: 0 0 24px rgba(140, 109, 255, 0.25);
     }
 
     .brand h1 {
@@ -187,14 +224,12 @@
       font-family: var(--font-title);
       font-size: clamp(22px, 2.7vw, 40px);
       line-height: 1.1;
-      letter-spacing: -1px;
     }
 
     .brand p {
       margin: 7px 0 0;
       color: var(--muted);
       font-size: 17px;
-      letter-spacing: 0.4px;
     }
 
     .theme-wrap {
@@ -210,11 +245,9 @@
       padding: 11px 16px;
       border: 1px solid var(--line);
       border-radius: 14px;
-      background: rgba(10, 7, 32, 0.45);
+      background: rgba(10, 7, 32, 0.50);
       color: var(--text);
       cursor: pointer;
-      box-shadow: 0 12px 25px var(--shadow);
-      transition: transform 150ms ease, border-color 150ms ease, background 150ms ease;
     }
 
     #theme-button:hover,
@@ -222,7 +255,6 @@
       border-color: var(--accent);
       background: var(--card-hover);
       outline: none;
-      transform: translateY(-2px);
     }
 
     .theme-icon {
@@ -240,7 +272,7 @@
       padding: 9px;
       border: 1px solid var(--line);
       border-radius: 16px;
-      background: rgba(12, 8, 35, 0.96);
+      background: rgba(12, 8, 35, 0.97);
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
       backdrop-filter: blur(16px);
     }
@@ -251,21 +283,12 @@
       backdrop-filter: none;
     }
 
-    .theme-menu.open {
-      display: block;
-      animation: theme-open 170ms ease-out;
+    body.theme-sbr .theme-menu {
+      background: rgba(33, 12, 3, 0.96);
     }
 
-    @keyframes theme-open {
-      from {
-        opacity: 0;
-        transform: translateY(-7px) scale(0.97);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
+    .theme-menu.open {
+      display: block;
     }
 
     .theme-option {
@@ -279,7 +302,6 @@
       color: var(--text);
       text-align: left;
       cursor: pointer;
-      transition: background 150ms ease;
     }
 
     body.theme-undertale .theme-option {
@@ -295,16 +317,17 @@
     body.theme-undertale .theme-option:hover,
     body.theme-undertale .theme-option:focus-visible {
       background: #191919;
-      color: var(--yellow);
+      color: #ffff00;
+    }
+
+    body.theme-sbr .theme-option:hover,
+    body.theme-sbr .theme-option:focus-visible {
+      background: rgba(255, 192, 73, 0.15);
     }
 
     .theme-option.disabled {
       cursor: not-allowed;
       opacity: 0.42;
-    }
-
-    .theme-option.disabled:hover {
-      background: transparent;
     }
 
     .theme-preview {
@@ -326,7 +349,7 @@
     }
 
     .theme-preview.sbr {
-      background: linear-gradient(135deg, #6d3918, #d2a22e, #234019);
+      background: linear-gradient(135deg, #4d1d09, #d9a52c, #2f5d20);
     }
 
     .theme-preview.future {
@@ -360,8 +383,6 @@
       margin: 0;
       font-size: clamp(30px, 5vw, 62px);
       line-height: 1.05;
-      letter-spacing: -1.5px;
-      text-wrap: balance;
     }
 
     .hero h2 span {
@@ -378,9 +399,9 @@
     }
 
     .search-area {
+      position: relative;
       max-width: 900px;
       margin: 28px auto 0;
-      position: relative;
     }
 
     .search-icon {
@@ -403,19 +424,16 @@
       background: var(--card);
       color: var(--text);
       font-size: 20px;
-      box-shadow: 0 15px 36px var(--shadow);
-      transition: border-color 150ms ease, box-shadow 150ms ease, background 150ms ease;
     }
 
     #search-input::placeholder {
       color: var(--muted);
-      opacity: 0.8;
     }
 
     #search-input:focus {
       border-color: var(--accent);
       background: var(--card-hover);
-      box-shadow: 0 0 0 4px rgba(185, 156, 255, 0.16), 0 15px 36px var(--shadow);
+      box-shadow: 0 0 0 4px rgba(185, 156, 255, 0.16);
     }
 
     body.theme-undertale #search-input,
@@ -457,8 +475,8 @@
       border: 1px solid var(--line);
       border-radius: 19px;
       background: var(--card);
-      box-shadow: 0 16px 36px var(--shadow);
-      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.38);
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
     }
 
     body.theme-undertale .game-card {
@@ -469,7 +487,6 @@
     .game-card:hover {
       border-color: var(--accent);
       background: var(--card-hover);
-      box-shadow: 0 22px 50px rgba(0, 0, 0, 0.5);
       transform: translateY(-7px);
     }
 
@@ -483,10 +500,16 @@
         #15102f;
     }
 
+    body.theme-sbr .game-image-wrap {
+      background:
+        linear-gradient(135deg, rgba(255, 204, 89, 0.22), rgba(111, 39, 6, 0.5)),
+        #2e0d04;
+    }
+
     .game-image {
+      display: block;
       width: 100%;
       height: 100%;
-      display: block;
       object-fit: cover;
       transition: transform 300ms ease;
     }
@@ -521,6 +544,10 @@
       border: 3px solid #fff;
     }
 
+    body.theme-sbr .image-fallback {
+      background: linear-gradient(135deg, #612308, #1f0903);
+    }
+
     .game-info {
       padding: 17px;
     }
@@ -535,19 +562,10 @@
       white-space: nowrap;
     }
 
-    .game-id {
-      min-height: 22px;
-      margin: 7px 0 16px;
-      overflow: hidden;
-      color: var(--muted);
-      font-size: 14px;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
     .play-button {
       width: 100%;
       min-height: 42px;
+      margin-top: 15px;
       border-radius: 11px;
       background: linear-gradient(135deg, var(--accent), var(--accent-two));
       color: var(--button-text);
@@ -555,7 +573,6 @@
       font-weight: 700;
       font-size: 17px;
       letter-spacing: 0.6px;
-      transition: transform 130ms ease, filter 130ms ease;
     }
 
     body.theme-undertale .play-button {
@@ -570,10 +587,6 @@
       outline: none;
       filter: brightness(1.15);
       transform: scale(1.025);
-    }
-
-    .play-button:active {
-      transform: scale(.98);
     }
 
     .state-box {
@@ -614,6 +627,74 @@
       color: var(--accent);
     }
 
+    #game-player {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: none;
+      background: #000;
+    }
+
+    #game-player.open {
+      display: block;
+    }
+
+    #game-frame {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      background: #000;
+    }
+
+    #game-loading {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      display: grid;
+      place-items: center;
+      background: #000;
+      pointer-events: none;
+    }
+
+    #loading-border {
+      width: min(520px, 74vw);
+      height: 34px;
+      padding: 4px;
+      border: 4px solid #fff;
+      background: #000;
+    }
+
+    #loading-fill {
+      width: 0%;
+      height: 100%;
+      background: #fff;
+      transition: width 150ms linear;
+    }
+
+    #back-button {
+      position: fixed;
+      top: 14px;
+      left: 14px;
+      z-index: 5;
+      display: none;
+      padding: 9px 13px;
+      border: 2px solid #fff;
+      background: #000;
+      color: #fff;
+      cursor: pointer;
+      font-family: "Peak Pixel", "Courier New", monospace;
+      font-weight: 700;
+      font-size: 17px;
+    }
+
+    #back-button:hover,
+    #back-button:focus-visible {
+      border-color: #ffff00;
+      color: #ffff00;
+      outline: none;
+    }
+
     @media (max-width: 680px) {
       .site-shell {
         width: min(100% - 24px, 1500px);
@@ -649,10 +730,6 @@
         display: none;
       }
 
-      .hero {
-        margin-bottom: 27px;
-      }
-
       .games-heading {
         margin-top: 34px;
       }
@@ -670,13 +747,9 @@
         font-size: 18px;
       }
 
-      .game-id {
-        margin: 5px 0 11px;
-        font-size: 12px;
-      }
-
       .play-button {
         min-height: 37px;
+        margin-top: 11px;
         font-size: 14px;
       }
     }
@@ -725,11 +798,11 @@
             </span>
           </button>
 
-          <button class="theme-option disabled" type="button" disabled>
+          <button class="theme-option" type="button" data-theme="sbr">
             <span class="theme-preview sbr"></span>
             <span>
               <strong>Steel Ball Run</strong>
-              <small>Coming later</small>
+              <small>Desert racing theme</small>
             </span>
           </button>
 
@@ -747,9 +820,7 @@
     <section class="hero">
       <h2>Find your next <span>peak</span> game.</h2>
 
-      <p>
-        Search your game collection and play directly in your browser.
-      </p>
+      <p>Search your game collection and play directly in your browser.</p>
 
       <div class="search-area">
         <span class="search-icon" aria-hidden="true">⌕</span>
@@ -779,51 +850,85 @@
     </section>
 
     <footer class="site-footer">
-      <span>Peak Game Stash</span> · Powered by your GitHub repository
+      <span>Peak Game Stash</span> · Your game collection
     </footer>
   </main>
 
+  <section id="game-player">
+    <button id="back-button" type="button">← BACK TO STASH</button>
+
+    <div id="game-loading">
+      <div id="loading-border">
+        <div id="loading-fill"></div>
+      </div>
+    </div>
+
+    <iframe
+      id="game-frame"
+      title="Peak Game Stash Game Player"
+      allow="autoplay; fullscreen; gamepad"
+    ></iframe>
+  </section>
+
   <script>
-    const GITHUB_USER = "purpleskulltrooper85-svg";
-    const REPOSITORY = "PeakGameStash";
+    const USER = "purpleskulltrooper85-svg";
+    const REPO = "PeakGameStash";
     const BRANCH = "main";
 
+    const CDN = `https://cdn.jsdelivr.net/gh/${USER}/${REPO}@${BRANCH}`;
     const GITHUB_API =
-      `https://api.github.com/repos/${GITHUB_USER}/${REPOSITORY}/contents`;
+      `https://api.github.com/repos/${USER}/${REPO}/contents`;
 
-    const GITHUB_PAGES =
-      `https://${GITHUB_USER}.github.io/${REPOSITORY}`;
+    const THEME_ASSETS = {
+      regularClick: [
+        "themes/regular/ClickSound.mp3",
+        "themes/regular/clicksound.mp3",
+        "themes/regular/click.mp3",
+        "themes/regular/Click.mp3"
+      ],
 
-    const JSDELIVR =
-      `https://cdn.jsdelivr.net/gh/${GITHUB_USER}/${REPOSITORY}@${BRANCH}`;
+      regularMusic: [
+        "themes/regular/music.mp3",
+        "themes/regular/music.ogg",
+        "themes/regular/Music.mp3",
+        "themes/regular/Music.ogg"
+      ],
 
-    /*
-      CHANGE ONLY THESE FILENAMES IF YOUR THEME FILES HAVE DIFFERENT NAMES.
+      undertaleDrone: [
+        "themes/undertale/audio_drone.ogg",
+        "themes/undertale/AudioDrone.ogg",
+        "themes/undertale/drone.ogg"
+      ],
 
-      Expected repository structure:
+      undertaleMove: [
+        "themes/undertale/snd_menumove.mp3",
+        "themes/undertale/menuMove.mp3",
+        "themes/undertale/menumove.mp3"
+      ],
 
-      themes/
-        regular/
-          click.mp3
-        undertale/
-          PixelOperatorMono-Bold.ttf
-          audio_drone.ogg
-          snd_menumove.mp3
-          snd_select.mp3
-        steel-ball-run/
-          ... future files ...
-    */
-    const THEME_FILES = {
-      regular: {
-        click: "themes/regular/click.mp3"
-      },
+      undertaleSelect: [
+        "themes/undertale/snd_select.mp3",
+        "themes/undertale/select.mp3",
+        "themes/undertale/menuSelect.mp3"
+      ],
 
-      undertale: {
-        font: "themes/undertale/PixelOperatorMono-Bold.ttf",
-        drone: "themes/undertale/audio_drone.ogg",
-        move: "themes/undertale/snd_menumove.mp3",
-        select: "themes/undertale/snd_select.mp3"
-      }
+      undertaleMusic: [
+        "themes/undertale/music.mp3",
+        "themes/undertale/music.ogg",
+        "themes/undertale/Music.mp3",
+        "themes/undertale/Music.ogg"
+      ],
+
+      sbrBackground: [
+        "themes/steelballrun/background.png",
+        "themes/steelballrun/Background.png",
+        "themes/steelballrun/background.jpg",
+        "themes/steelballrun/Background.jpg",
+        "themes/steelballrun/background.jpeg",
+        "themes/steelballrun/Background.jpeg",
+        "themes/steelballrun/background.webp",
+        "themes/steelballrun/Background.webp"
+      ]
     };
 
     const gamesGrid = document.getElementById("games-grid");
@@ -832,25 +937,47 @@
     const themeButton = document.getElementById("theme-button");
     const themeMenu = document.getElementById("theme-menu");
 
-    const regularClickSound = new Audio();
+    const gamePlayer = document.getElementById("game-player");
+    const gameFrame = document.getElementById("game-frame");
+    const gameLoading = document.getElementById("game-loading");
+    const loadingFill = document.getElementById("loading-fill");
+    const backButton = document.getElementById("back-button");
+
+    const regularClick = new Audio();
+    const regularMusic = new Audio();
+
     const undertaleDrone = new Audio();
-    const undertaleMoveSound = new Audio();
-    const undertaleSelectSound = new Audio();
+    const undertaleMove = new Audio();
+    const undertaleSelect = new Audio();
+    const undertaleMusic = new Audio();
 
-    regularClickSound.preload = "auto";
+    regularClick.preload = "auto";
+    regularMusic.preload = "auto";
+
     undertaleDrone.preload = "auto";
-    undertaleMoveSound.preload = "auto";
-    undertaleSelectSound.preload = "auto";
+    undertaleMove.preload = "auto";
+    undertaleSelect.preload = "auto";
+    undertaleMusic.preload = "auto";
 
-    regularClickSound.volume = 0.58;
-    undertaleDrone.volume = 0.32;
-    undertaleMoveSound.volume = 0.52;
-    undertaleSelectSound.volume = 0.62;
+    regularClick.volume = 0.58;
+    regularMusic.volume = 0.30;
 
-    let allGames = [];
-    let activeTheme = localStorage.getItem("peak-game-stash-theme") || "galaxy";
+    undertaleDrone.volume = 0.24;
+    undertaleMove.volume = 0.52;
+    undertaleSelect.volume = 0.62;
+    undertaleMusic.volume = 0.30;
+
+    regularMusic.loop = true;
+    undertaleDrone.loop = true;
+    undertaleMusic.loop = true;
+
+    let activeTheme = localStorage.getItem("peak-theme") || "galaxy";
+    let games = [];
+    let imageFiles = [];
     let audioUnlocked = false;
     let lastHoveredElement = null;
+    let loadingProgress = 0;
+    let loadingTimer = null;
 
     function encodePath(path) {
       return path
@@ -859,15 +986,15 @@
         .join("/");
     }
 
-    function cdnURL(path) {
-      return `${JSDELIVR}/${encodePath(path)}`;
+    function cdn(path) {
+      return `${CDN}/${encodePath(path)}?v=2`;
     }
 
-    function pageURL(path) {
-      return `${GITHUB_PAGES}/${encodePath(path)}`;
+    function gameURL(path) {
+      return cdn(path);
     }
 
-    function cleanGameTitle(filename) {
+    function cleanGameName(filename) {
       return filename
         .replace(/\.[^/.]+$/, "")
         .replace(/^dg/i, "")
@@ -875,58 +1002,62 @@
         .replace(/([a-z])([A-Z])/g, "$1 $2")
         .replace(/[_\-]+/g, " ")
         .replace(/\s+/g, " ")
-        .replace(/\b\w/g, letter => letter.toUpperCase())
-        .trim() || filename;
-    }
-
-    function gameSort(a, b) {
-      return a.displayName.localeCompare(b.displayName, undefined, {
-        numeric: true,
-        sensitivity: "base"
-      });
+        .replace(/\b\w/g, character => character.toUpperCase())
+        .trim() || "Unnamed Game";
     }
 
     function playSound(sound) {
-      if (!sound || !sound.src) return;
+      if (!sound.src) return;
 
       sound.pause();
       sound.currentTime = 0;
-
       sound.play().catch(() => {});
+    }
+
+    function stopAllThemeMusic() {
+      regularMusic.pause();
+      regularMusic.currentTime = 0;
+
+      undertaleMusic.pause();
+      undertaleMusic.currentTime = 0;
+
+      undertaleDrone.pause();
+      undertaleDrone.currentTime = 0;
+    }
+
+    function startThemeMusic() {
+      if (!audioUnlocked || gamePlayer.classList.contains("open")) return;
+
+      stopAllThemeMusic();
+
+      if (activeTheme === "galaxy") {
+        regularMusic.play().catch(() => {});
+      }
+
+      if (activeTheme === "undertale") {
+        undertaleMusic.play().catch(() => {});
+        undertaleDrone.play().catch(() => {});
+      }
     }
 
     function unlockAudio() {
       if (audioUnlocked) return;
 
       audioUnlocked = true;
-
-      if (activeTheme === "undertale") {
-        startUndertaleDrone();
-      }
-    }
-
-    function startUndertaleDrone() {
-      if (!audioUnlocked || activeTheme !== "undertale") return;
-
-      undertaleDrone.play().catch(() => {});
-    }
-
-    function stopUndertaleDrone() {
-      undertaleDrone.pause();
-      undertaleDrone.currentTime = 0;
+      startThemeMusic();
     }
 
     function playHoverSound() {
       if (activeTheme === "undertale") {
-        playSound(undertaleMoveSound);
+        playSound(undertaleMove);
       }
     }
 
-    function playClickSound() {
+    function playGameSound() {
       if (activeTheme === "undertale") {
-        playSound(undertaleSelectSound);
-      } else {
-        playSound(regularClickSound);
+        playSound(undertaleSelect);
+      } else if (activeTheme === "galaxy") {
+        playSound(regularClick);
       }
     }
 
@@ -944,36 +1075,95 @@
         }
       });
 
-      element.addEventListener("focus", () => {
-        playHoverSound();
-      });
+      element.addEventListener("focus", playHoverSound);
     }
 
-    function loadThemeAssets() {
-      regularClickSound.src = cdnURL(THEME_FILES.regular.click);
+    async function pathExists(path) {
+      try {
+        const response = await fetch(cdn(path), {
+          method: "HEAD",
+          cache: "no-store"
+        });
 
-      undertaleDrone.src = cdnURL(THEME_FILES.undertale.drone);
-      undertaleMoveSound.src = cdnURL(THEME_FILES.undertale.move);
-      undertaleSelectSound.src = cdnURL(THEME_FILES.undertale.select);
+        return response.ok;
+      } catch {
+        return false;
+      }
+    }
+
+    async function firstExistingPath(paths) {
+      for (const path of paths) {
+        if (await pathExists(path)) {
+          return path;
+        }
+      }
+
+      return null;
+    }
+
+    async function loadThemeAssets() {
+      const [
+        regularClickPath,
+        regularMusicPath,
+        dronePath,
+        movePath,
+        selectPath,
+        undertaleMusicPath,
+        sbrPath
+      ] = await Promise.all([
+        firstExistingPath(THEME_ASSETS.regularClick),
+        firstExistingPath(THEME_ASSETS.regularMusic),
+        firstExistingPath(THEME_ASSETS.undertaleDrone),
+        firstExistingPath(THEME_ASSETS.undertaleMove),
+        firstExistingPath(THEME_ASSETS.undertaleSelect),
+        firstExistingPath(THEME_ASSETS.undertaleMusic),
+        firstExistingPath(THEME_ASSETS.sbrBackground)
+      ]);
+
+      if (regularClickPath) regularClick.src = cdn(regularClickPath);
+      if (regularMusicPath) regularMusic.src = cdn(regularMusicPath);
+
+      if (dronePath) undertaleDrone.src = cdn(dronePath);
+      if (movePath) undertaleMove.src = cdn(movePath);
+      if (selectPath) undertaleSelect.src = cdn(selectPath);
+      if (undertaleMusicPath) undertaleMusic.src = cdn(undertaleMusicPath);
+
+      if (sbrPath) {
+        document.documentElement.style.setProperty(
+          "--sbr-background",
+          `url("${cdn(sbrPath)}")`
+        );
+      }
+
+      if (audioUnlocked) {
+        startThemeMusic();
+      }
     }
 
     function setTheme(theme) {
       activeTheme = theme;
 
       document.body.classList.toggle("theme-undertale", theme === "undertale");
+      document.body.classList.toggle("theme-sbr", theme === "sbr");
+
+      const icon = themeButton.querySelector(".theme-icon");
 
       if (theme === "undertale") {
-        themeButton.querySelector(".theme-icon").textContent = "♥";
-        startUndertaleDrone();
+        icon.textContent = "♥";
+      } else if (theme === "sbr") {
+        icon.textContent = "★";
       } else {
-        themeButton.querySelector(".theme-icon").textContent = "✦";
-        stopUndertaleDrone();
+        icon.textContent = "✦";
       }
 
-      localStorage.setItem("peak-game-stash-theme", theme);
+      localStorage.setItem("peak-theme", theme);
 
       themeMenu.classList.remove("open");
       themeButton.setAttribute("aria-expanded", "false");
+
+      if (audioUnlocked) {
+        startThemeMusic();
+      }
 
       renderGames();
     }
@@ -981,119 +1171,77 @@
     function toggleThemeMenu() {
       unlockAudio();
 
-      const isOpen = themeMenu.classList.toggle("open");
-      themeButton.setAttribute("aria-expanded", String(isOpen));
+      const open = themeMenu.classList.toggle("open");
+      themeButton.setAttribute("aria-expanded", String(open));
 
       playHoverSound();
     }
 
-    async function fetchFolder(path) {
+    async function githubFolder(path) {
       const response = await fetch(
-        `${GITHUB_API}/${encodePath(path)}?ref=${encodeURIComponent(BRANCH)}`
+        `${GITHUB_API}/${encodePath(path)}?ref=${encodeURIComponent(BRANCH)}`,
+        { cache: "no-store" }
       );
 
       if (!response.ok) {
-        throw new Error(`Could not read /${path}. HTTP ${response.status}`);
+        throw new Error(`Could not load /${path}: HTTP ${response.status}`);
       }
 
       return response.json();
     }
 
-    async function getImageLookup() {
-      const imageFiles = await fetchFolder("images");
-      const lookup = new Map();
-
-      imageFiles
-        .filter(item => item.type === "file")
-        .forEach(item => {
-          const lowercaseName = item.name.toLowerCase();
-          const noExtension = lowercaseName.replace(/\.[^/.]+$/, "");
-
-          lookup.set(lowercaseName, item.path);
-          lookup.set(noExtension, item.path);
-        });
-
-      return lookup;
-    }
-
-    function findImagePath(gameFileName, imageLookup) {
+    function imageForGame(gameFileName) {
       const noExtension = gameFileName.replace(/\.[^/.]+$/, "");
 
-      const candidates = [
-        gameFileName,
-        noExtension,
+      const candidateNames = [
         `${noExtension}.png`,
         `${noExtension}.jpg`,
         `${noExtension}.jpeg`,
         `${noExtension}.webp`,
-        `${noExtension}.gif`
+        `${noExtension}.gif`,
+        `${gameFileName}.png`,
+        `${gameFileName}.jpg`,
+        `${gameFileName}.webp`
       ];
 
-      for (const candidate of candidates) {
-        const found = imageLookup.get(candidate.toLowerCase());
+      const found = imageFiles.find(image => {
+        return candidateNames.includes(image.name);
+      });
 
-        if (found) return found;
-      }
-
-      return null;
+      return found ? found.path : null;
     }
 
     async function loadGames() {
       try {
-        const [gameItems, imageLookup] = await Promise.all([
-          fetchFolder("games"),
-          getImageLookup()
+        const [gameItems, imageItems] = await Promise.all([
+          githubFolder("games"),
+          githubFolder("images")
         ]);
 
-        /*
-          This accepts:
-          dgDeltarune.html
-          dgUndertale.html
-          dg_any-game.html
-          dg_any-game.htm
+        imageFiles = imageItems.filter(item => item.type === "file");
 
-          It also accepts dg game folders if you add any later.
-        */
-        allGames = gameItems
+        games = gameItems
           .filter(item => {
-            const startsWithDG = item.name.toLowerCase().startsWith("dg");
-
-            const isHTMLFile =
+            return (
               item.type === "file" &&
-              /\.(html?|HTML?)$/.test(item.name);
-
-            const isGameFolder = item.type === "dir";
-
-            return startsWithDG && (isHTMLFile || isGameFolder);
+              /^dg/i.test(item.name) &&
+              /\.html?$/i.test(item.name)
+            );
           })
           .map(item => {
-            const imagePath = findImagePath(item.name, imageLookup);
-
             return {
-              id: item.name,
+              filename: item.name,
               path: item.path,
-              type: item.type,
-              displayName: cleanGameTitle(item.name),
-              imagePath,
-
-              /*
-                HTML game:
-                games/dgDeltarune.html
-                becomes:
-                https://purpleskulltrooper85-svg.github.io/PeakGameStash/games/dgDeltarune.html
-
-                Folder game:
-                games/dgExample/
-                becomes:
-                https://purpleskulltrooper85-svg.github.io/PeakGameStash/games/dgExample/
-              */
-              playURL:
-                item.type === "dir"
-                  ? `${pageURL(item.path)}/`
-                  : pageURL(item.path)
+              title: cleanGameName(item.name),
+              imagePath: imageForGame(item.name)
             };
           })
-          .sort(gameSort);
+          .sort((a, b) => {
+            return a.title.localeCompare(b.title, undefined, {
+              numeric: true,
+              sensitivity: "base"
+            });
+          });
 
         renderGames();
       } catch (error) {
@@ -1101,15 +1249,79 @@
 
         gamesGrid.innerHTML = `
           <div class="state-box">
-            <strong>Could not load your game stash.</strong>
-            Make sure the repository is public and has
-            <code>/games</code> and <code>/images</code> folders.
+            <strong>Could not load games.</strong>
+            Put files such as <code>dgDeltarune.html</code>
+            directly inside <code>/games</code>.
           </div>
         `;
 
         gameCount.textContent = "0 games";
       }
     }
+
+    function setProgress(value) {
+      loadingProgress = Math.max(0, Math.min(100, value));
+      loadingFill.style.width = `${loadingProgress}%`;
+    }
+
+    function startLoadingBar() {
+      clearInterval(loadingTimer);
+      setProgress(0);
+
+      loadingTimer = setInterval(() => {
+        if (loadingProgress < 88) {
+          const amount = loadingProgress < 45 ? 5 : 1.8;
+          setProgress(loadingProgress + amount);
+        }
+      }, 120);
+    }
+
+    function finishLoadingBar() {
+      clearInterval(loadingTimer);
+      setProgress(100);
+
+      setTimeout(() => {
+        gameLoading.style.display = "none";
+      }, 180);
+    }
+
+    function resetLoadingBar() {
+      clearInterval(loadingTimer);
+      setProgress(0);
+      gameLoading.style.display = "grid";
+    }
+
+    function launchGame(game) {
+      unlockAudio();
+      playGameSound();
+      stopAllThemeMusic();
+
+      gamePlayer.classList.add("open");
+      backButton.style.display = "block";
+
+      resetLoadingBar();
+      startLoadingBar();
+
+      gameFrame.src = gameURL(game.path);
+    }
+
+    function returnToStash() {
+      if (activeTheme === "undertale") {
+        playSound(undertaleSelect);
+      }
+
+      gameFrame.src = "about:blank";
+
+      gamePlayer.classList.remove("open");
+      backButton.style.display = "none";
+
+      resetLoadingBar();
+      startThemeMusic();
+    }
+
+    gameFrame.addEventListener("load", () => {
+      finishLoadingBar();
+    });
 
     function createGameCard(game) {
       const card = document.createElement("article");
@@ -1120,7 +1332,7 @@
 
       const fallback = document.createElement("div");
       fallback.className = "image-fallback";
-      fallback.textContent = game.displayName;
+      fallback.textContent = game.title;
 
       imageWrap.appendChild(fallback);
 
@@ -1128,8 +1340,8 @@
         const image = document.createElement("img");
 
         image.className = "game-image";
-        image.src = cdnURL(game.imagePath);
-        image.alt = `${game.displayName} cover image`;
+        image.src = cdn(game.imagePath);
+        image.alt = `${game.title} cover`;
 
         image.addEventListener("load", () => {
           fallback.style.display = "none";
@@ -1148,11 +1360,7 @@
 
       const title = document.createElement("h4");
       title.className = "game-title";
-      title.textContent = game.displayName;
-
-      const gameID = document.createElement("p");
-      gameID.className = "game-id";
-      gameID.textContent = game.id;
+      title.textContent = game.title;
 
       const playButton = document.createElement("button");
       playButton.className = "play-button";
@@ -1160,41 +1368,32 @@
       playButton.textContent = "PLAY";
 
       playButton.addEventListener("click", () => {
-        unlockAudio();
-        playClickSound();
-
-        setTimeout(() => {
-          window.open(game.playURL, "_blank", "noopener");
-        }, activeTheme === "undertale" ? 85 : 0);
+        launchGame(game);
       });
 
       enableHoverSound(card);
       enableHoverSound(playButton);
 
-      info.append(title, gameID, playButton);
+      info.append(title, playButton);
       card.append(imageWrap, info);
 
       return card;
     }
 
     function renderGames() {
-      const search = searchInput.value.trim().toLowerCase();
+      const query = searchInput.value.trim().toLowerCase();
 
-      const filteredGames = allGames.filter(game => {
-        return (
-          game.displayName.toLowerCase().includes(search) ||
-          game.id.toLowerCase().includes(search)
-        );
+      const filtered = games.filter(game => {
+        return game.title.toLowerCase().includes(query);
       });
 
       gamesGrid.innerHTML = "";
 
-      if (allGames.length === 0) {
+      if (games.length === 0) {
         gamesGrid.innerHTML = `
           <div class="state-box">
-            <strong>No games found yet.</strong>
-            Add HTML files such as
-            <code>dgDeltarune.html</code> inside <code>/games</code>.
+            <strong>No games found.</strong>
+            Add files like <code>games/dgDeltarune.html</code>.
           </div>
         `;
 
@@ -1202,7 +1401,7 @@
         return;
       }
 
-      if (filteredGames.length === 0) {
+      if (filtered.length === 0) {
         gamesGrid.innerHTML = `
           <div class="state-box">
             <strong>No matching games.</strong>
@@ -1214,29 +1413,32 @@
         return;
       }
 
-      filteredGames.forEach(game => {
+      filtered.forEach(game => {
         gamesGrid.appendChild(createGameCard(game));
       });
 
       gameCount.textContent =
-        `${filteredGames.length} game${filteredGames.length === 1 ? "" : "s"}`;
+        `${filtered.length} game${filtered.length === 1 ? "" : "s"}`;
     }
 
-    themeButton.addEventListener("click", () => {
-      toggleThemeMenu();
-    });
-
+    themeButton.addEventListener("click", toggleThemeMenu);
     enableHoverSound(themeButton);
 
     themeMenu.querySelectorAll("[data-theme]").forEach(button => {
       button.addEventListener("click", () => {
         unlockAudio();
-        playClickSound();
+
+        if (activeTheme === "undertale") {
+          playSound(undertaleSelect);
+        }
+
         setTheme(button.dataset.theme);
       });
 
       enableHoverSound(button);
     });
+
+    backButton.addEventListener("click", returnToStash);
 
     document.addEventListener("click", event => {
       if (!event.target.closest(".theme-wrap")) {
@@ -1258,6 +1460,14 @@
 
     document.addEventListener("keydown", event => {
       unlockAudio();
+
+      if (gamePlayer.classList.contains("open")) {
+        if (event.key === "Escape") {
+          returnToStash();
+        }
+
+        return;
+      }
 
       if (event.key === "Escape") {
         themeMenu.classList.remove("open");
